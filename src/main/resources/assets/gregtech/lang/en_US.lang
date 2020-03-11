@@ -993,3 +993,14 @@ for.mutation.condition.biomeid=Required Biome
 for.mutation.condition.dim=Required Dimension
 
 itemGroup.GTtools=Prebuild Tools
+
+gregtech.fertilitySterile=Sterile
+gregtech.fertilityMultiply=Multiply
+gregtech.floweringNonpollinating=Non pollinating
+gregtech.floweringNaturalistic=Naturalistic
+gregtech.areaLethargic=Lethargic
+gregtech.areaExploratory=Exploratory
+gregtech.speedUnproductive=Unproductive
+gregtech.speedAccelerated=Accelerated
+gregtech.lifeBlink=Blink 
+gregtech.lifeEon=Eon
