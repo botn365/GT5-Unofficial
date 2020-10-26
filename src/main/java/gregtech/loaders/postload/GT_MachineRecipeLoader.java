@@ -10,6 +10,7 @@ import gregtech.api.objects.MaterialStack;
 import gregtech.api.util.*;
 import gregtech.common.GT_DummyWorld;
 import gregtech.common.items.GT_MetaGenerated_Item_03;
+import gregtech.common.items.GT_VolumetricFlask;
 import ic2.api.recipe.ILiquidHeatExchangerManager;
 import ic2.api.recipe.Recipes;
 import mods.railcraft.common.blocks.aesthetics.cube.EnumCube;
@@ -17,6 +18,7 @@ import mods.railcraft.common.items.RailcraftToolItems;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -528,6 +530,45 @@ public class GT_MachineRecipeLoader implements Runnable {
         GT_Values.RA.addAssemblerRecipe(new ItemStack[]{ItemList.Hull_EV.get(1L), GT_OreDictUnificator.get(OrePrefixes.spring, Materials.Aluminium, 1L), ItemList.Circuit_Chip_PIC.get(2L), ItemList.EV_Coil.get(2L), ItemList.Reactor_Coolant_NaK_1.get(1L), ItemList.Electric_Pump_EV.get(1L)}, GT_Values.NF, ItemList.Hatch_Dynamo_EV.get(1L), 200, 1920);
         GT_Values.RA.addAssemblerRecipe(new ItemStack[]{ItemList.Hull_IV.get(1L), GT_OreDictUnificator.get(OrePrefixes.spring, Materials.Vanadiumtriindinid, 1L), ItemList.Circuit_Chip_HPIC.get(2L), ItemList.IV_Coil.get(2L), ItemList.Reactor_Coolant_NaK_3.get(1L), ItemList.Electric_Pump_IV.get(1L)}, GT_Values.NF, ItemList.Hatch_Dynamo_IV.get(1L), 200, 7680);
 
+
+        {//limiting life time of the variables
+            ItemStack flask = ItemList.VOLUMETRIC_FLASK.get(1);
+            NBTTagCompound nbtFlask = new NBTTagCompound();
+            nbtFlask.setInteger("Capacity", 144);
+            flask.setTagCompound(nbtFlask);
+            GT_Values.RA.addAssemblerRecipe(ItemList.VOLUMETRIC_FLASK.get(1), GT_Utility.getIntegratedCircuit(1), flask, 10, 30);
+            nbtFlask.setInteger("Capacity", 288);
+            flask.setTagCompound(nbtFlask);
+            GT_Values.RA.addAssemblerRecipe(ItemList.VOLUMETRIC_FLASK.get(1), GT_Utility.getIntegratedCircuit(2), flask, 10, 30);
+            nbtFlask.setInteger("Capacity", 576);
+            flask.setTagCompound(nbtFlask);
+            GT_Values.RA.addAssemblerRecipe(ItemList.VOLUMETRIC_FLASK.get(1), GT_Utility.getIntegratedCircuit(3), flask, 10, 30);
+            nbtFlask.setInteger("Capacity", 720);
+            flask.setTagCompound(nbtFlask);
+            GT_Values.RA.addAssemblerRecipe(ItemList.VOLUMETRIC_FLASK.get(1), GT_Utility.getIntegratedCircuit(4), flask, 10, 30);
+            nbtFlask.setInteger("Capacity", 250);
+            flask.setTagCompound(nbtFlask);
+            GT_Values.RA.addAssemblerRecipe(ItemList.VOLUMETRIC_FLASK.get(1), GT_Utility.getIntegratedCircuit(5), flask, 10, 30);
+            nbtFlask.setInteger("Capacity", 500);
+            flask.setTagCompound(nbtFlask);
+            GT_Values.RA.addAssemblerRecipe(ItemList.VOLUMETRIC_FLASK.get(1), GT_Utility.getIntegratedCircuit(6), flask, 10, 30);
+            // make the 1000L recipe actualy in
+            ItemStack flask500 = flask.copy();
+            nbtFlask.setInteger("Capacity", 1000);
+            flask.setTagCompound(nbtFlask);
+            GT_Values.RA.addAssemblerRecipe(flask500, GT_Utility.getIntegratedCircuit(24), flask, 10, 30);
+        }
+
+
+
+
+//        NBTTagCompound tNBT = new NBTTagCompound();
+//        tNBT.setInteger("Capacity",144);
+//        flask.readFromNBT(tNBT);
+//        GT_Values.RA.addAssemblerRecipe(GT_ModHandler.getModItem("gregtech","gt.Volumetric_Flask",1),GT_Utility.getIntegratedCircuit(1),flask,10,30);
+
+
+
 //        GT_Values.RA.addAssemblerRecipe(new ItemStack[]{ItemList.Hull_HV.get(1L), GT_OreDictUnificator.get(OrePrefixes.pipeMedium, Materials.Brass, 1L), ItemList.Conveyor_Module_HV.get(1L), new ItemStack(Blocks.chest, 1, 0), GT_Utility.getIntegratedCircuit(1)}, GT_Values.NF, ItemList.Hatch_Input_Bus_HV.get(1L), 200, 480);
 //        GT_Values.RA.addAssemblerRecipe(new ItemStack[]{ItemList.Hull_EV.get(1L), GT_OreDictUnificator.get(OrePrefixes.pipeMedium, Materials.Electrum, 1L), ItemList.Conveyor_Module_EV.get(1L), new ItemStack(Blocks.chest, 1, 0), GT_Utility.getIntegratedCircuit(1)}, GT_Values.NF, ItemList.Hatch_Input_Bus_EV.get(1L), 200, 1920);
 //        GT_Values.RA.addAssemblerRecipe(new ItemStack[]{ItemList.Hull_IV.get(1L), GT_OreDictUnificator.get(OrePrefixes.pipeMedium, Materials.Platinum, 1L), ItemList.Conveyor_Module_IV.get(1L), new ItemStack(Blocks.chest, 1, 0), GT_Utility.getIntegratedCircuit(1)}, GT_Values.NF, ItemList.Hatch_Input_Bus_IV.get(1L), 200, 7680);
@@ -578,6 +619,15 @@ public class GT_MachineRecipeLoader implements Runnable {
         GT_Values.RA.addElectrolyzerRecipe(ItemList.Cell_Empty.get(1), null, new FluidStack(ItemList.sBlueVitriol, 2000), Materials.SulfuricAcid.getFluid(1000), GT_OreDictUnificator.get(OrePrefixes.dust, Materials.Copper, 1), GT_OreDictUnificator.get(OrePrefixes.cell, Materials.Oxygen, 1), GT_Values.NI, GT_Values.NI, GT_Values.NI, GT_Values.NI, null, 900, 30);
         GT_Values.RA.addElectrolyzerRecipe(ItemList.Cell_Empty.get(1), null, new FluidStack(ItemList.sNickelSulfate, 2000), Materials.SulfuricAcid.getFluid(1000), GT_OreDictUnificator.get(OrePrefixes.dust, Materials.Nickel, 1), GT_OreDictUnificator.get(OrePrefixes.cell, Materials.Oxygen, 1), GT_Values.NI, GT_Values.NI, GT_Values.NI, GT_Values.NI, null, 900, 30);
         GT_Values.RA.addCentrifugeRecipe(GT_OreDictUnificator.get(OrePrefixes.dust, Materials.PlatinumGroupSludge, 1), null, null, null, GT_OreDictUnificator.get(OrePrefixes.dust, Materials.SiliconDioxide, 1), GT_OreDictUnificator.get(OrePrefixes.dust, Materials.Gold, 1), GT_OreDictUnificator.get(OrePrefixes.dust, Materials.Platinum, 1), GT_OreDictUnificator.get(OrePrefixes.dustTiny, Materials.Palladium, 3), GT_OreDictUnificator.get(OrePrefixes.dustTiny, Materials.Iridium, 3), GT_OreDictUnificator.get(OrePrefixes.dustTiny, Materials.Osmium, 3), new int[]{10000, 10000, 10000, 9500, 9000, 8500}, 900, 30);
+
+        // skeleton bee comb recipe
+
+
+
+
+
+
+
 
         GT_Values.RA.addElectrolyzerRecipe(ItemList.Cell_Empty.get(11), GT_Utility.getIntegratedCircuit(1), Materials.Glycerol.getFluid(14000), GT_Values.NF, GT_OreDictUnificator.get(OrePrefixes.dust, Materials.Carbon, 3), GT_OreDictUnificator.get(OrePrefixes.cell, Materials.Hydrogen, 8), GT_OreDictUnificator.get(OrePrefixes.cell, Materials.Oxygen, 3), GT_Values.NI, GT_Values.NI, GT_Values.NI, null, 300, 90);
 
@@ -892,6 +942,7 @@ public class GT_MachineRecipeLoader implements Runnable {
         GT_Values.RA.addAssemblerRecipe(new ItemStack[]{GT_OreDictUnificator.get(OrePrefixes.stick, Materials.SamariumMagnetic, 1L), GT_OreDictUnificator.get(OrePrefixes.wireFine, Materials.Europium, 16L), GT_Utility.getIntegratedCircuit(1)}, GT_Values.NF, ItemList.ZPM_Coil.get(1L), 200, 122880);
         GT_Values.RA.addAssemblerRecipe(new ItemStack[]{GT_OreDictUnificator.get(OrePrefixes.stick, Materials.SamariumMagnetic, 1L), GT_OreDictUnificator.get(OrePrefixes.wireFine, Materials.ElectrumFlux, 16L), GT_Utility.getIntegratedCircuit(1)}, GT_Values.NF, ItemList.UV_Coil.get(1L), 200, 500000);
         GT_Values.RA.addAssemblerRecipe(new ItemStack[]{GT_OreDictUnificator.get(OrePrefixes.stick, Materials.SamariumMagnetic, 1L), GT_OreDictUnificator.get(OrePrefixes.wireFine, Materials.Tritanium, 16L), GT_Utility.getIntegratedCircuit(1)}, GT_Values.NF, ItemList.UHV_Coil.get(1L), 200, 2000000);
+
 
         GT_Values.RA.addAssemblerRecipe(new ItemStack[]{GT_OreDictUnificator.get(OrePrefixes.plate, Materials.Wood, 6L), GT_Utility.getIntegratedCircuit(2)}, Materials.Glue.getFluid(10), GT_OreDictUnificator.get(OrePrefixes.pipeLarge, Materials.Wood, 2L), 200, 30);
         GT_Values.RA.addAssemblerRecipe(new ItemStack[]{GT_OreDictUnificator.get(OrePrefixes.plate, Materials.Wood, 3L), GT_Utility.getIntegratedCircuit(4)}, Materials.Glue.getFluid(20), GT_OreDictUnificator.get(OrePrefixes.pipeMedium, Materials.Wood, 4L), 200, 30);

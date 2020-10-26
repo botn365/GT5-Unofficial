@@ -1056,6 +1056,7 @@ public class GT_Mod implements IGT_Mod {
                 super.displayAllReleventItems(aList);
             }
         };
+        Costom_Recipes.run();
     }
 
     public static void doActualRegistration(Materials m){
