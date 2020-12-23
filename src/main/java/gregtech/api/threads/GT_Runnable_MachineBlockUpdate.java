@@ -55,8 +55,10 @@ public class GT_Runnable_MachineBlockUpdate implements Runnable {
     private static boolean isEnabled = true;
 
     public static void setMachineUpdateValues(World aWorld, int aX, int aY, int aZ) {
-        if (isEnabled)
+        if (isEnabled) {
+            aWorld.getTileEntity(aX, aY, aZ);
             EXECUTOR_SERVICE.submit(new GT_Runnable_MachineBlockUpdate(aWorld, aX, aY, aZ));
+        }
     }
 
     public static void initExecutorService() {
@@ -94,10 +96,10 @@ public class GT_Runnable_MachineBlockUpdate implements Runnable {
     }
 
     private boolean shouldRecurse(TileEntity aTileEntity, int aX, int aY, int aZ) {
-        //no check on IGregTechTileEntity as it should call the underlying meta tile isMachineBlockUpdateRecursive
-        //if (aTileEntity instanceof IGregTechTileEntity) {
-        //    return ((IGregTechTileEntity) aTileEntity).isMachineBlockUpdateRecursive();
-        //}
+       // no check on IGregTechTileEntity as it should call the underlying meta tile isMachineBlockUpdateRecursive
+       // if (aTileEntity instanceof IGregTechTileEntity) {
+       //    return ((IGregTechTileEntity) aTileEntity).isMachineBlockUpdateRecursive();
+       // }
         return (aTileEntity instanceof IMachineBlockUpdateable &&
                 ((IMachineBlockUpdateable) aTileEntity).isMachineBlockUpdateRecursive()) ||
                 GregTech_API.isMachineBlock(world.getBlock(aX, aY, aZ), world.getBlockMetadata(aX, aY, aZ));
